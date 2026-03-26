@@ -5,32 +5,28 @@ import "./globals.css";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-  display: 'swap',
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-  display: 'swap',
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Academia Mori's-Reforma | Moldando os Líderes do Amanhã",
-  description: "Instituição de vanguarda em Luanda dedicada ao desenvolvimento de liderança, oratória e inteligência emocional para crianças e adolescentes.",
-  keywords: ["Educação", "Liderança Infantil", "Empreendedorismo Kids", "Oratória", "Luanda", "Benfica", "Angola"],
-  openGraph: {
-    title: "Academia Mori's-Reforma | Moldando os Líderes do Amanhã",
-    description: "Instituição de vanguarda em Luanda dedicada ao desenvolvimento de liderança, oratória e inteligência emocional para crianças e adolescentes.",
-    images: [
-      {
-        url: "/logo-t.jpeg",
-        width: 800,
-        height: 600,
-        alt: "Academia Mori's-Reforma",
-      },
-    ],
-  },
-
+  description:
+    "Instituição de vanguarda em Luanda dedicada ao desenvolvimento de liderança, oratória e inteligência emocional para crianças e adolescentes.",
+  keywords: [
+    "Educação",
+    "Liderança Infantil",
+    "Empreendedorismo Kids",
+    "Oratória",
+    "Luanda",
+    "Benfica",
+    "Angola",
+  ]
 };
 
 export default function RootLayout({
@@ -41,6 +37,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-AO"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
     >
       <body className="min-h-full flex flex-col bg-white text-slate-900 selection:bg-orange-100 selection:text-orange-900">
