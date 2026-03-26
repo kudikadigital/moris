@@ -24,14 +24,14 @@ export function Featured() {
       description: "Autocontrolo e ferramentas de gestão de sentimentos para vencer desafios.",
       icon: <BrainCircuit className="w-5 h-5" />,
       tag: "Resiliência",
-      source: "Gestão de conflitos e autoconhecimento [cite: 37]"
+      source: "Gestão de conflitos e autoconhecimento"
     },
     {
       title: "Empreendedorismo Kids",
       description: "Da ideia à ação: despertando a proactividade e visão estratégica cedo.",
       icon: <Rocket className="w-5 h-5" />,
       tag: "Inovação",
-      source: "Criatividade financeira e gestão de projetos [cite: 38]"
+      source: "Criatividade financeira e gestão de projetos"
     },
     {
       title: "Etiqueta e Postura",
@@ -52,7 +52,7 @@ export function Featured() {
               whileInView={{ opacity: 1 }}
               className="text-orange-500 font-bold text-xs uppercase tracking-[0.2em] mb-4 block"
             >
-              Formação de Protagonistas [cite: 29]
+              Formação de Protagonistas
             </motion.span>
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
