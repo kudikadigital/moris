@@ -17,7 +17,20 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Academia Mori's-Reforma | Moldando os Líderes do Amanhã",
   description: "Instituição de vanguarda em Luanda dedicada ao desenvolvimento de liderança, oratória e inteligência emocional para crianças e adolescentes.",
-  keywords: ["Educação", "Liderança Infantil", "Oratória", "Luanda", "Benfica", "Angola"],
+  keywords: ["Educação", "Liderança Infantil", "Empreendedorismo Kids", "Oratória", "Luanda", "Benfica", "Angola"],
+  openGraph: {
+    title: "Academia Mori's-Reforma | Moldando os Líderes do Amanhã",
+    description: "Instituição de vanguarda em Luanda dedicada ao desenvolvimento de liderança, oratória e inteligência emocional para crianças e adolescentes.",
+    images: [
+      {
+        url: "/logo-t.jpeg",
+        width: 800,
+        height: 600,
+        alt: "Academia Mori's-Reforma",
+      },
+    ],
+  },
+
 };
 
 export default function RootLayout({
