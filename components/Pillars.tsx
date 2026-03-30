@@ -44,51 +44,88 @@ export function Pillars() {
   ];
 
   return (
-    <section id="pilares" className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="mb-16">
-          <motion.h2 
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl font-bold text-slate-900 mb-4"
-          >
-            Pilares da Formação
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-slate-500 max-w-xl"
-          >
-            Nossa grelha curricular é desenhada especificamente para cada faixa etária, focando no que realmente diferencia um líder.
-          </motion.p>
-        </div>
+    <section id="pilares" className="relative py-32 bg-white overflow-hidden">
+      
+      {/* 1. Background Elements: Padrão de Pontos e Formas Orgânicas */}
+      <div 
+        className="absolute inset-0 opacity-[0.03] pointer-events-none -z-10" 
+        style={{ 
+          backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', 
+          backgroundSize: '32px 32px' 
+        }} 
+      />
+      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-orange-100/30 rounded-full blur-[120px] pointer-events-none -z-10" />
+      <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-slate-100/50 rounded-full blur-[100px] pointer-events-none -z-10" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {pillars.map((pillar, index) => (
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="max-w-2xl">
             <motion.div
-              key={pillar.title}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="flex items-center gap-2 mb-4"
+            >
+              <span className="w-10 h-px bg-orange-600" />
+              <span className="text-orange-600 font-bold text-xs uppercase tracking-widest">Excelência Pedagógica</span>
+            </motion.div>
+            <motion.h2 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -5 }}
-              className="p-8 rounded-3xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300 group"
+              className="text-4xl md:text-5xl font-bold text-slate-900 leading-tight"
             >
-              <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-slate-900 shadow-sm mb-6 group-hover:bg-orange-600 group-hover:text-white transition-colors duration-300">
-                {pillar.icon}
+              Os Pilares da <br /> Nossa Formação
+            </motion.h2>
+          </div>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-slate-500 max-w-sm text-lg font-light leading-relaxed"
+          >
+            Nossa grelha curricular é desenhada para cada faixa etária, focando no que realmente diferencia um líder.
+          </motion.p>
+        </div>
+
+        {/* 2. Grid de Cards com Glassmorphism sutil */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {pillars.map((pillar, index) => (
+            <motion.div
+              key={pillar.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.5 }}
+              whileHover={{ y: -10 }}
+              className="relative p-10 rounded-[2.5rem] border border-slate-100 bg-white/40 backdrop-blur-sm hover:bg-white hover:shadow-[0_32px_64px_-16px_rgba(0,0,0,0.08)] transition-all duration-500 group overflow-hidden"
+            >
+              {/* Efeito de luz interna no hover */}
+              <div className="absolute inset-0 bg-linear-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              <div className="relative z-10">
+                <div className="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-900 shadow-sm mb-8 group-hover:bg-orange-600 group-hover:text-white group-hover:scale-110 transition-all duration-500">
+                  {pillar.icon}
+                </div>
+                
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-orange-600/70 mb-3 block">
+                  {pillar.tag}
+                </span>
+                
+                <h3 className="text-2xl font-bold text-slate-900 mb-4 tracking-tight">
+                  {pillar.title}
+                </h3>
+                
+                <p className="text-slate-600 leading-relaxed font-light">
+                  {pillar.description}
+                </p>
               </div>
-              <span className="text-[10px] font-bold uppercase tracking-widest text-orange-600 mb-2 block">
-                {pillar.tag}
-              </span>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">
-                {pillar.title}
-              </h3>
-              <p className="text-slate-600 leading-relaxed text-sm">
-                {pillar.description}
-              </p>
+
+              {/* Detalhe Decorativo de Canto */}
+              <div className="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-10 transition-opacity">
+                <div className="w-12 h-12 border-t-2 border-r-2 border-orange-600 rounded-tr-xl" />
+              </div>
             </motion.div>
           ))}
         </div>
