@@ -31,14 +31,15 @@ export function Header() {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 md:px-12 ${
         isScrolled 
           ? "py-4 bg-white/80 backdrop-blur-md border-b border-slate-100 shadow-sm" 
-          : "py-8 bg-transparent"
+          : "py-6 bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo Placeholder - Mantendo a identidade visual */}
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-10 h-10 bg-slate-900 rounded-full flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform">
+          <div className="w-8 h-8 bg-slate-900 rounded-full flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform">
              <span className="text-white font-bold text-xl">M</span>
+            {/* <Image src="/logo.jpeg" alt="Logo" className="w-10 h-10" width={20} height={20} /> */}
           </div>
           <span className="font-bold text-xl tracking-tight text-slate-900">
             Mori&#39;s<span className="text-orange-600">.</span>
