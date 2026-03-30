@@ -5,7 +5,7 @@ import { Pillars } from "@/components/Pillars";
 import { Featured } from "@/components/Featured";
 import { CTA } from "@/components/Cta";
 import { Footer } from "@/components/Footer";
-
+import { AdBannerInline } from "@/components/ads/AdBannerInline";
 export default function Home() {
   return (
     <main className="relative min-h-screen bg-white selection:bg-orange-100 selection:text-orange-900">
@@ -20,6 +20,7 @@ export default function Home() {
         <div className="space-y-0">
           <Essence />
           <Pillars />
+          <AdBannerInline />
           <Featured />
           <CTA />
         </div>
