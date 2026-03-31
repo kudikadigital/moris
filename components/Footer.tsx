@@ -1,127 +1,85 @@
 "use client";
 
-import { ArrowUp } from "lucide-react";
+import Link from "next/link";
+import { SiFacebook, SiInstagram } from "react-icons/si";
+import { SlSocialLinkedin } from "react-icons/sl";
+import { Mail, MapPin } from "lucide-react";
 
 export function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-white pt-20 pb-10 border-t border-slate-100">
+    <footer className="bg-white border-t border-slate-100 pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-          {/* Brand & Mission */}
-          <div className="md:col-span-2">
-            <div className="flex items-center gap-2 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+          
+          {/* Coluna 1: Branding */}
+          <div className="space-y-6">
+            <Link href="/" className="flex items-center gap-2">
               <div className="w-8 h-8 bg-slate-900 rounded-full flex items-center justify-center">
                 <span className="text-white font-bold text-sm">M</span>
               </div>
-              <span className="font-bold text-xl tracking-tight text-slate-900">
+              <span className="font-bold text-xl tracking-tighter text-slate-900">
                 Mori&#39;s<span className="text-orange-600">.</span>
               </span>
-            </div>
-            <p className="text-slate-500 text-sm max-w-sm leading-relaxed mb-6">
-              Instituição educacional de vanguarda dedicada ao desenvolvimento
-              integral de crianças e adolescentes Moldando os líderes do amanhã,
-              hoje.
+            </Link>
+            <p className="text-slate-500 text-sm leading-relaxed font-light">
+              Elevando o potencial da nova geração em Angola através da comunicação, 
+              liderança e ética.
             </p>
             <div className="flex gap-4">
-              <a
-                href="#"
-                className="p-2 bg-slate-50 rounded-full hover:bg-orange-50 hover:text-orange-600 transition-colors"
-              >
-                {/* <Instagram className="w-5 h-5" /> */}
-              </a>
-              <a
-                href="#"
-                className="p-2 bg-slate-50 rounded-full hover:bg-orange-50 hover:text-orange-600 transition-colors"
-              >
-                {/* <Facebook className="w-5 h-5" /> */}
-              </a>
-              <a
-                href="#"
-                className="p-2 bg-slate-50 rounded-full hover:bg-orange-50 hover:text-orange-600 transition-colors"
-              >
-                {/* <Linkedin className="w-5 h-5" /> */}
-              </a>
+              <Link href="#" className="p-2 bg-slate-50 rounded-full text-slate-400 hover:text-orange-600 transition-colors"><SiInstagram size={18}/></Link>
+              <Link href="#" className="p-2 bg-slate-50 rounded-full text-slate-400 hover:text-orange-600 transition-colors"><SiFacebook size={18}/></Link>
+              <Link href="#" className="p-2 bg-slate-50 rounded-full text-slate-400 hover:text-orange-600 transition-colors"><SlSocialLinkedin size={18}/></Link>
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Coluna 2: Navegação */}
           <div>
-            <h4 className="font-bold text-slate-900 mb-6 uppercase text-[10px] tracking-[0.2em]">
-              Navegação
-            </h4>
-            <ul className="space-y-4 text-sm text-slate-600 font-medium">
-              <li>
-                <a
-                  href="#sobre"
-                  className="hover:text-orange-600 transition-colors"
-                >
-                  A Academia
-                </a>
+            <h4 className="font-bold text-slate-900 mb-6 uppercase text-xs tracking-widest">Institucional</h4>
+            <ul className="space-y-4 text-sm text-slate-500">
+              <li><Link href="/#sobre" className="hover:text-orange-600 transition-colors">A Academia</Link></li>
+              <li><Link href="/#metodologia" className="hover:text-orange-600 transition-colors">Metodologia</Link></li>
+              <li><Link href="/blog" className="hover:text-orange-600 font-bold text-slate-900">Blog & Pensamento</Link></li>
+              <li><Link href="/#carreiras" className="hover:text-orange-600 transition-colors">Trabalhe Connosco</Link></li>
+            </ul>
+          </div>
+
+          {/* Coluna 3: Cursos Populares */}
+          <div>
+            <h4 className="font-bold text-slate-900 mb-6 uppercase text-xs tracking-widest">Formações</h4>
+            <ul className="space-y-4 text-sm text-slate-500">
+              <li><Link href="/#cursos" className="hover:text-orange-600 transition-colors">Oratória Infantil</Link></li>
+              <li><Link href="/#cursos" className="hover:text-orange-600 transition-colors">Liderança Teen</Link></li>
+              <li><Link href="/#cursos" className="hover:text-orange-600 transition-colors">Etiqueta Social</Link></li>
+              <li><Link href="/#cursos" className="hover:text-orange-600 transition-colors">Inteligência Emocional</Link></li>
+            </ul>
+          </div>
+
+          {/* Coluna 4: Contacto & Localização */}
+          <div>
+            <h4 className="font-bold text-slate-900 mb-6 uppercase text-xs tracking-widest">Onde Estamos</h4>
+            <ul className="space-y-4 text-sm text-slate-500">
+              <li className="flex gap-3">
+                <MapPin size={18} className="text-orange-600 shrink-0" />
+                <span>Luanda, Benfica<br />Via Expressa, Próximo ao Kero</span>
               </li>
-              <li>
-                <a
-                  href="#pilares"
-                  className="hover:text-orange-600 transition-colors"
-                >
-                  Pilares da Formação
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#cursos"
-                  className="hover:text-orange-600 transition-colors"
-                >
-                  Cursos em Destaque
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#contacto"
-                  className="hover:text-orange-600 transition-colors"
-                >
-                  Matrículas
-                </a>
+              <li className="flex gap-3">
+                <Mail size={18} className="text-orange-600 shrink-0" />
+                <span>info@academiamoris.com</span>
               </li>
             </ul>
           </div>
 
-          {/* Location & Contact */}
-          <div>
-            <h4 className="font-bold text-slate-900 mb-6 uppercase text-[10px] tracking-[0.2em]">
-              Contactos
-            </h4>
-            <ul className="space-y-4 text-sm text-slate-600">
-              <li className="leading-relaxed">
-                Benfica, Via Expressa .<br />
-                Fronte ao Supermercado Ango Delem .
-              </li>
-              <li className="font-bold text-slate-900">
-                (+244) 938 460 008 <br />
-                (+244) 942 061 223
-              </li>
-            </ul>
-          </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-10 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-xs text-slate-400">
-            © 2026 Academia Mori&#39;s-Reforma. Todos os direitos reservados.
-          </p>
-
-          <button
-            onClick={scrollToTop}
-            className="group flex items-center gap-2 text-xs font-bold text-slate-900 uppercase tracking-widest hover:text-orange-600 transition-colors"
-          >
-            Voltar ao topo
-            <div className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center group-hover:border-orange-600 transition-colors">
-              <ArrowUp className="w-4 h-4" />
-            </div>
-          </button>
+        {/* Copyright */}
+        <div className="pt-8 border-t border-slate-50 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] uppercase tracking-[0.2em] text-slate-400 font-bold">
+          <p>© {currentYear} Academia Mori&#39;s-Reforma. Todos os direitos reservados.</p>
+          <div className="flex gap-6">
+            <Link href="/privacidade" className="hover:text-slate-900">Privacidade</Link>
+            <Link href="/termos" className="hover:text-slate-900">Termos de Uso</Link>
+          </div>
         </div>
       </div>
     </footer>
