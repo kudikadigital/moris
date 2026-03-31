@@ -125,9 +125,9 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex-col items-center gap-2 hidden md:flex "
       >
-        <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">
+        <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold ">
           Scroll
         </span>
         <div className="w-px h-12 bg-linear-to-b from-orange-600 to-transparent" />
