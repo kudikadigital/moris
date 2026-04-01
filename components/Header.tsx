@@ -20,7 +20,8 @@ export function Header() {
     { name: "A Academia", href: "/#sobre" },
     { name: "Pilares", href: "/#pilares" },
     { name: "Cursos", href: "/#cursos" },
-    { name: "Blog", href: "/blog" }, // Novo Link
+    { name: "Blog", href: "/blog" },
+    { name: "FAQ", href: "/#faq" },
     { name: "Contacto", href: "/#contacto" },
   ];
 

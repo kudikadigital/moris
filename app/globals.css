@@ -123,6 +123,7 @@
   }
   body {
     @apply bg-background text-foreground;
+    overflow-x: hidden; /* prevents horizontal scrollbar during slide-in animations */
   }
   html {
     @apply font-sans;
