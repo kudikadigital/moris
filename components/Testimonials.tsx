@@ -13,7 +13,7 @@ const testimonials = [
 // Slides from LEFT — opposite direction from About (which came from right)
 const slideFromLeft = {
   hidden: { x: -80, opacity: 0 },
-  visible: { x: 0, opacity: 1, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
+  visible: { x: 0, opacity: 1, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const} },
 };
 
 export function Testimonials() {

@@ -16,7 +16,7 @@ const faqs = [
 // FAQ slides from RIGHT then stabilizes — final horizontal section before CTA
 const slideFromRight = {
   hidden: { x: 80, opacity: 0 },
-  visible: { x: 0, opacity: 1, transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] } },
+  visible: { x: 0, opacity: 1, transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] as const} },
 };
 
 export function FAQ() {
