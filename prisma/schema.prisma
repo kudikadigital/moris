@@ -11,3 +11,37 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+
+// CMS: Artigos do Blog
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  slug      String   @unique
+  content   String   @db.Text
+  excerpt   String
+  category  String
+  image     String?
+  published Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// CRM: Gestão de Leads
+model admin {
+  id       String   @id @default(cuid())
+  name     String
+  email    String   @unique
+  password String
+}
+
+model Lead {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  source    String   // Ex: "Matrícula", "Newsletter", "Ebook"
+  status    String   @default("Novo") // Novo, Em Contacto, Matriculado, Arquivado
+  message   String?  @db.Text
+  createdAt DateTime @default(now())
+}
