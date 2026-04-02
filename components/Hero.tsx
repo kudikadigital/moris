@@ -5,21 +5,14 @@ import Image from "next/image";
 
 const item = {
   hidden: { y: 24, opacity: 0 },
-  visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const} },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const },
+  },
 };
 
-export function Hero() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
+export function Hero({ onOpenModal }: { onOpenModal: () => void }) {
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
@@ -33,8 +26,8 @@ export function Hero() {
     <section className="sticky top-0 h-screen flex items-center bg-white overflow-hidden">
       {/* Background image — face/content on the RIGHT side of photo, so we place it right */}
       <div className="absolute right-0 top-0 w-full h-full lg:w-3/5 z-0 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/70 to-transparent z-10" />
-        <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-white/60 z-10" />
+        <div className="absolute inset-0 bg-linear-to-r from-white via-white/70 to-transparent z-10" />
+        <div className="absolute inset-0 bg-linear-to-b from-white/30 via-transparent to-white/60 z-10" />
         <Image
           src="/hero-student.jpg"
           alt="Estudante Academia Mori's"
@@ -48,16 +41,25 @@ export function Hero() {
       {/* Subtle dot grid */}
       <div
         className="absolute inset-0 opacity-[0.025] pointer-events-none z-0"
-        style={{ backgroundImage: "radial-gradient(#000 1px, transparent 1px)", backgroundSize: "32px 32px" }}
+        style={{
+          backgroundImage: "radial-gradient(#000 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
+        }}
       />
 
       {/* Atmospheric glow */}
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-orange-500/10 rounded-full blur-[140px] pointer-events-none z-0" />
+      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-150 h-150 bg-orange-500/10 rounded-full blur-[140px] pointer-events-none z-0" />
 
       {/* Content — LEFT aligned, max-w-7xl */}
       <motion.div
         className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12"
-        variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.18, delayChildren: 0.25 } } }}
+        variants={{
+          hidden: { opacity: 0 },
+          visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.18, delayChildren: 0.25 },
+          },
+        }}
         initial="hidden"
         animate="visible"
       >
@@ -75,11 +77,20 @@ export function Hero() {
           Moldando os <br />
           <span className="text-orange-600 relative inline-block">
             Líderes
-            <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 338 12" fill="none">
-              <path d="M1 9.5C51.5 4.66667 152.5 -1.5 337 9.5" stroke="#EA580C" strokeWidth="3" strokeLinecap="round" />
+            <svg
+              className="absolute -bottom-2 left-0 w-full"
+              viewBox="0 0 338 12"
+              fill="none"
+            >
+              <path
+                d="M1 9.5C51.5 4.66667 152.5 -1.5 337 9.5"
+                stroke="#EA580C"
+                strokeWidth="3"
+                strokeLinecap="round"
+              />
             </svg>
-          </span>
-          {" "}do Amanhã.
+          </span>{" "}
+          do Amanhã.
         </motion.h1>
 
         <motion.p
@@ -87,14 +98,18 @@ export function Hero() {
           className="text-lg md:text-xl text-slate-600 max-w-md mb-10 leading-relaxed font-light"
         >
           Preparamos a nova geração para os desafios globais com ferramentas
-          intelectuais e comportamentais para que se destaquem em qualquer cenário.
+          intelectuais e comportamentais para que se destaquem em qualquer
+          cenário.
         </motion.p>
 
         <motion.div
           initial={itemVariants}
           className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
         >
-          <button className="group relative px-8 py-4 bg-slate-900 text-white font-medium rounded-full overflow-hidden transition-all duration-300 w-full sm:w-auto hover:pr-12">
+          <button
+            className="group relative px-8 py-4 bg-slate-900 text-white font-medium rounded-full overflow-hidden transition-all duration-300 w-full sm:w-auto hover:pr-12"
+            onClick={onOpenModal}
+          >
             <span className="relative z-10">Preparar meu filho</span>
             <span className="absolute right-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
               →
@@ -122,8 +137,10 @@ export function Hero() {
         transition={{ delay: 2 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <span className="text-[9px] uppercase tracking-widest text-slate-400 font-bold">Scroll</span>
-        <div className="w-px h-10 bg-gradient-to-b from-orange-600 to-transparent" />
+        <span className="text-[9px] uppercase tracking-widest text-slate-400 font-bold">
+          Scroll
+        </span>
+        <div className="w-px h-10 bg-linear-to-b from-orange-600 to-transparent" />
       </motion.div>
     </section>
   );
