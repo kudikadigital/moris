@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 
 export function proxy(request: NextRequest) {
   // 1. Recupera o token que definimos na Route Handler de Login
-  const token = request.cookies.get('auth_token')?.value;
+  const token = request.cookies.get('admin-token')?.value;
   
   const { pathname } = request.nextUrl;
 
