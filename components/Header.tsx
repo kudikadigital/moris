@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-export function Header({ onOpenModal }: { onOpenModal: () => void }) {
+export function Header({ onOpenModal, isModalOpen }: { onOpenModal: () => void; isModalOpen: boolean }) {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -27,7 +27,8 @@ export function Header({ onOpenModal }: { onOpenModal: () => void }) {
   return (
     <motion.header
       initial={{ y: -100 }}
-      animate={{ y: 0 }}
+      // animate={{ y: 0 }}~
+      animate={{ y: isModalOpen ? -100 : 0, opacity: isModalOpen ? 0 : 1 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       // AJUSTE: z-40 para garantir que o Modal (z-100) fique sempre por cima
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 px-6 md:px-12 ${

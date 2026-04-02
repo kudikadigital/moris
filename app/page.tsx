@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <main className="relative min-h-screen bg-white selection:bg-orange-100 selection:text-orange-900">
       {/* Navegação fixa */}
-      <Header onOpenModal={() => setIsModalOpen(true)} />
+      <Header onOpenModal={() => setIsModalOpen(true)} isModalOpen={isModalOpen} />
 
       {/* Fluxo de Conteúdo */}
       <Hero onOpenModal={() => setIsModalOpen(true)} />
