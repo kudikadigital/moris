@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-export function Header() {
+export function Header({ onOpenModal }: { onOpenModal: () => void }) {
   const [isScrolled, setIsScrolled] = useState(false);
 
   // Efeito para detectar o scroll e mudar a aparência do Header
@@ -69,7 +69,10 @@ export function Header() {
           >
             938 460 008
           </Link>
-          <button className="px-6 py-2.5 bg-slate-900 text-white text-sm font-medium rounded-full hover:bg-orange-600 transition-all duration-300 shadow-lg shadow-slate-900/10">
+          <button
+            className="px-6 py-2.5 bg-slate-900 text-white text-sm font-medium rounded-full hover:bg-orange-600 transition-all duration-300 shadow-lg shadow-slate-900/10"
+            onClick={onOpenModal}
+          >
             Matrículas Abertas
           </button>
         </div>

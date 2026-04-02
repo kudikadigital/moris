@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-export function Hero() {
+export function Hero({ onOpenModal }: { onOpenModal: () => void }) {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -107,14 +107,19 @@ export function Hero() {
           initial={itemVariants}
           className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
         >
-          <button className="group relative px-8 py-4 bg-slate-900 text-white font-medium rounded-full overflow-hidden transition-all duration-300 w-full sm:w-auto hover:pr-12">
+          <button
+            className="group relative px-8 py-4 bg-slate-900 text-white font-medium rounded-full overflow-hidden transition-all duration-300 w-full sm:w-auto hover:pr-12"
+            onClick={onOpenModal}
+          >
             <span className="relative z-10">Preparar meu filho</span>
             <span className="absolute right-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
               →
             </span>
           </button>
 
-          <button className="px-8 py-4 border border-slate-200 text-slate-900 font-medium rounded-full hover:bg-slate-50 hover:border-slate-300 transition-all duration-300 w-full sm:w-auto">
+          <button className="px-8 py-4 border border-slate-200 text-slate-900 font-medium rounded-full hover:bg-slate-50 hover:border-slate-300 transition-all duration-300 w-full sm:w-auto"
+           onClick={() => window.scrollBy({ top: window.innerHeight, behavior: "smooth" })}
+          >
             Conhecer Metodologia
           </button>
         </motion.div>
