@@ -1,9 +1,10 @@
 "use client";
 
 import { updateLeadStatus } from "@/lib/actions/leads";
+import { Lead } from "@/lib/generated/prisma/client";
 import { Phone, Mail, MessageCircle } from "lucide-react";
 
-export function LeadRow({ lead }: { lead: any }) {
+export function LeadRow({ lead }: { lead: Lead }) {
   const handleStatusChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     await updateLeadStatus(lead.id, e.target.value);
   };

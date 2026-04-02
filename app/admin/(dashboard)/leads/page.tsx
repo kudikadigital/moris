@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { LeadRow } from "./LeadRow";
-import { Users, Filter } from "lucide-react";
+import { Filter } from "lucide-react";
 
 export default async function LeadsAdmin() {
   const leads = await prisma.lead.findMany({ orderBy: { createdAt: 'desc' } });
