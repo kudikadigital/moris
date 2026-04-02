@@ -1,12 +1,12 @@
 "use client";
 
+import LogoutBtn from "@/components/admin/Logout";
 import { motion } from "framer-motion";
 import {
   LayoutDashboard,
   Users,
   FileText,
   Settings,
-  LogOut,
   ShieldCheck,
   PlusCircle,
   ExternalLink,
@@ -108,9 +108,7 @@ export default function AdminLayout({
 
         {/* Footer Sidebar / Logout */}
         <div className="p-6 border-t border-slate-800">
-          <button className="flex items-center gap-3 w-full px-4 py-3 text-red-500 hover:bg-red-500/10 rounded-2xl transition-all text-sm font-bold">
-            <LogOut size={18} /> Terminar Sessão
-          </button>
+         <LogoutBtn />
         </div>
       </aside>
 

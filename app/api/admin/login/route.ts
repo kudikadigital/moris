@@ -11,18 +11,15 @@ export async function POST(request: Request) {
     const { email, password } = await request.json();
 
     // Log para ver o que chega do formulário
-    console.log("Tentativa de Login:", { email, passwordLength: password?.length });
 
     const admin = await prisma.admin.findUnique({ where: { email } });
 
     if (!admin) {
-      console.log("❌ Admin não encontrado no DB");
       return NextResponse.json({ error: "Credenciais inválidas." }, { status: 401 });
     }
 
     const isPasswordValid = await bcrypt.compare(password, admin.password);
     
-    console.log("🔍 Resultado Bcrypt:", isPasswordValid);
 
     if (!isPasswordValid) {
       return NextResponse.json({ error: "Credenciais inválidas." }, { status: 401 });
