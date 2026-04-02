@@ -11,7 +11,6 @@ import { Testimonials } from "@/components/Testimonials";
 import { FAQ } from "@/components/FAQ";
 import { CTA } from "@/components/Cta";
 import { Footer } from "@/components/Footer";
-import { AdBannerInline } from "@/components/ads/AdBannerInline";
 import { useState } from "react";
 import { EnrollmentModal } from "@/components/Modals/EnrollmentModal";
 export default function Home() {
@@ -38,6 +37,7 @@ export default function Home() {
       <div className="relative z-20">
         <Featured />
         {/* Testimonials and FAQ sit at z-30 — they scroll over Featured */}
+       
         <div className="relative z-30 overflow-x-hidden">
           <Testimonials />
           <FAQ />
@@ -49,8 +49,6 @@ export default function Home() {
         <CTA />
         <Footer />
 
-        {/* Banner inline */}
-        <AdBannerInline />
 
         {/* Modal de inscrição */}
         <EnrollmentModal

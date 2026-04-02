@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { EnrollmentForm } from "../EnrollmentForm";
+import { useEffect } from "react";
 
 interface EnrollmentModalProps {
   isOpen: boolean;
@@ -10,6 +11,14 @@ interface EnrollmentModalProps {
 }
 
 export function EnrollmentModal({ isOpen, onClose }: EnrollmentModalProps) {
+  useEffect(() => {
+  if (isOpen) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = 'unset';
+  }
+  return () => { document.body.style.overflow = 'unset'; };
+}, [isOpen]);
   return (
     <AnimatePresence>
       {isOpen && (

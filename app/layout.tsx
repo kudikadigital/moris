@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "@/context/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
     "Luanda",
     "Benfica",
     "Angola",
-  ]
+  ],
 };
 
 export default function RootLayout({
@@ -42,7 +43,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-white text-slate-900 selection:bg-orange-100 selection:text-orange-900">
         {/* O 'main' dentro de 'children' no page.tsx ocupará o espaço flexível */}
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );
