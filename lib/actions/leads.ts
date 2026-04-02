@@ -43,3 +43,18 @@ export async function registerLead(prevState: LeadState, formData: FormData): Pr
     return { message: "Ocorreu um erro ao processar a sua inscrição. Tente novamente.", error: true };
   }
 }
+
+
+export async function updateLeadStatus(leadId: string, newStatus: string) {
+  try {
+    await prisma.lead.update({
+      where: { id: leadId },
+      data: { status: newStatus },
+    });
+    revalidatePath("/admin/leads");
+    return { success: true };
+  } catch (error) {
+    console.error("Erro ao atualizar status do lead:", error);
+    return { success: false, message: "Erro ao atualizar status" };
+  }
+}

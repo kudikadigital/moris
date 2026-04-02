@@ -20,7 +20,7 @@ export default function NewPostPage() {
         
         {/* Header de Navegação */}
         <div className="flex items-center justify-between mb-12">
-          <Link href="/blog" className="flex items-center gap-2 text-slate-500 hover:text-white transition-colors text-sm font-bold uppercase tracking-widest">
+          <Link href="/admin/blog" className="flex items-center gap-2 text-slate-500 hover:text-white transition-colors text-sm font-bold uppercase tracking-widest">
             <ArrowLeft size={16} /> Voltar ao Blog
           </Link>
           <div className="h-px flex-1 bg-slate-900 mx-8" />
