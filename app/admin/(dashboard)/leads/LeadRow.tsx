@@ -9,7 +9,7 @@ export function LeadRow({ lead }: { lead: Lead }) {
     await updateLeadStatus(lead.id, e.target.value);
   };
 
-  const whatsappLink = `https://wa.me/${lead.phone?.replace(/\D/g, "")}`;
+  const whatsappLink = `https://wa.me/+244${lead.phone?.replace(/\D/g, "")}`;
 
   return (
     <tr className="hover:bg-slate-800/30 transition-colors group border-b border-slate-800/50">
