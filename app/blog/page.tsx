@@ -16,7 +16,7 @@ export default async function BlogPage() {
         <header className="mb-20">
           {/* ... seu header aqui (pode ser estático) ... */}
           <h1 className="text-5xl md:text-7xl font-bold tracking-tighter text-slate-900 mb-6">
-            Pensamento <span className="text-orange-600">&</span> Reforma
+            Vozes <span className="text-orange-600">da</span> Reforma
           </h1>
         </header>
 

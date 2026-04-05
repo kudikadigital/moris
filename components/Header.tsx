@@ -57,7 +57,7 @@ export function Header({
     { name: "Pilares", href: "/#pilares" },
     { name: "Cursos", href: "/#cursos" },
     { name: "Blog", href: "/blog" },
-    { name: "FAQ", href: "/#faq" },
+    { name: "Perguntas Frequentes", href: "/#faq" },
     { name: "Contacto", href: "/#contacto" },
   ];
 
