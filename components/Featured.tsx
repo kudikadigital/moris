@@ -1,21 +1,87 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, Mic2, ShieldCheck, BrainCircuit, Rocket, Palette } from "lucide-react";
+import { Mic2, ShieldCheck, BrainCircuit, Rocket, Palette } from "lucide-react";
+import { CourseCard } from "./CourseCard";
+import { CourseGrid } from "./CourseGrid";
+
+// Mock images - substitua pelas suas URLs reais
+const courseImages = {
+  oratoria: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800",
+  lideranca: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800",
+  emocional: "https://images.unsplash.com/photo-1543286386-2e659306cd6c?w=800",
+  empreendedorismo: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800",
+  etiqueta: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800",
+};
 
 const courses = [
-  { title: "Oratória e Retórica Infantil", description: "Perca o medo de falar e encante audiências com domínio da expressão clara.", icon: <Mic2 className="w-5 h-5" />, tag: "Mais Procurado" },
-  { title: "Liderança e Ética", description: "Onde nascem os grandes gestores: foco em carisma e gestão de equipas.", icon: <ShieldCheck className="w-5 h-5" />, tag: "Adolescentes" },
-  { title: "Inteligência Emocional", description: "Autocontrolo e ferramentas de gestão de sentimentos para vencer desafios.", icon: <BrainCircuit className="w-5 h-5" />, tag: "Resiliência" },
-  { title: "Empreendedorismo Kids", description: "Da ideia à ação: despertando a proactividade e visão estratégica cedo.", icon: <Rocket className="w-5 h-5" />, tag: "Inovação" },
-  { title: "Etiqueta e Postura", description: "Elegância e comportamento social que abrem portas em qualquer lugar.", icon: <Palette className="w-5 h-5" />, tag: "Comportamental" },
+  {
+    id: 1,
+    title: "Oratória e Retórica Infantil",
+    description: "Perca o medo de falar e encante audiências com domínio da expressão clara.",
+    image: courseImages.oratoria,
+    icon: <Mic2 className="w-5 h-5" />,
+    tag: "Mais Procurado",
+    duration: "6 semanas",
+    level: "8-12 anos",
+    students: 234,
+    href: "/cursos/oratoria-infantil",
+  },
+  {
+    id: 2,
+    title: "Liderança e Ética para Adolescente",
+    description: "Onde nascem os grandes gestores: foco em carisma e gestão de equipas.",
+    image: courseImages.lideranca,
+    icon: <ShieldCheck className="w-5 h-5" />,
+    tag: "Adolescentes",
+    duration: "10 semanas",
+    level: "13-17 anos",
+    students: 189,
+    href: "/cursos/lideranca-etica",
+  },
+  {
+    id: 3,
+    title: "Inteligência Emocional",
+    description: "Autocontrolo e ferramentas de gestão de sentimentos para vencer desafios.",
+    image: courseImages.emocional,
+    icon: <BrainCircuit className="w-5 h-5" />,
+    tag: "Resiliência",
+    duration: "8 semanas",
+    level: "Todas idades",
+    students: 456,
+    href: "/cursos/inteligencia-emocional",
+  },
+  {
+    id: 4,
+    title: "Empreendedorismo Kids",
+    description: "Da ideia à ação: despertando a proactividade e visão estratégica cedo.",
+    image: courseImages.empreendedorismo,
+    icon: <Rocket className="w-5 h-5" />,
+    tag: "Inovação",
+    duration: "12 semanas",
+    level: "10-15 anos",
+    students: 167,
+    href: "/cursos/empreendedorismo-kids",
+  },
+  {
+    id: 5,
+    title: "Etiqueta e Postura",
+    description: "Elegância e comportamento social que abrem portas em qualquer lugar.",
+    image: courseImages.etiqueta,
+    icon: <Palette className="w-5 h-5" />,
+    tag: "Comportamental",
+    duration: "4 semanas",
+    level: "Todas idades",
+    students: 123,
+    href: "/cursos/etiqueta-postura",
+  },
 ];
 
 export function Featured() {
   return (
-    // Sticky cover — slides over Pillars exactly like Essence covered the Hero
-    <section id="cursos" className="sticky top-0 z-20 min-h-screen flex items-center bg-slate-950 text-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 w-full py-24">
+    <section id="cursos" className="sticky top-0 z-20 min-h-screen bg-slate-950 text-white overflow-hidden py-24">
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div className="max-w-2xl">
             <motion.span
@@ -45,35 +111,8 @@ export function Featured() {
           </motion.p>
         </div>
 
-        <div className="space-y-4">
-          {courses.map((course, index) => (
-            <motion.div
-              key={course.title}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.08 }}
-              whileHover={{ x: 8 }}
-              className="group relative p-8 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 transition-all cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-6"
-            >
-              <div className="flex items-start gap-6">
-                <div className="w-12 h-12 rounded-full bg-orange-600/20 text-orange-500 flex items-center justify-center shrink-0">
-                  {course.icon}
-                </div>
-                <div>
-                  <div className="flex items-center gap-3 mb-1">
-                    <h3 className="text-xl font-bold text-white group-hover:text-orange-500 transition-colors">{course.title}</h3>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full border border-white/10 text-slate-400 uppercase font-bold tracking-tighter">{course.tag}</span>
-                  </div>
-                  <p className="text-slate-400 text-sm max-w-xl">{course.description}</p>
-                </div>
-              </div>
-              <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-orange-600 group-hover:border-orange-600 transition-all shrink-0">
-                <ArrowUpRight className="w-4 h-4 text-white" />
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        {/* Grid de Cards */}
+        <CourseGrid courses={courses} columns={3} />
       </div>
     </section>
   );

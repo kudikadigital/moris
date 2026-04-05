@@ -90,7 +90,7 @@ export function Hero({ onOpenModal }: { onOpenModal: () => void }) {
               />
             </svg>
           </span>{" "}
-          do Amanhã.
+          do Amanhã, Hoje.
         </motion.h1>
 
         <motion.p

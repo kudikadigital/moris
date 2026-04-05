@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { MessageSquare, Users, Sparkles, TrendingUp, HeartPulse } from "lucide-react";
 
 const pillars = [
-  { title: "Comunicação e Oratória", description: "A arte de expressar ideias com fluidez, clareza e convicção para encantar audiências.", icon: <MessageSquare className="w-6 h-6" />, tag: "Domínio da Expressão" },
+  { title: "Comunicação, Oratória e Retórica", description: "A arte de expressar ideias com fluidez, clareza e convicção para encantar audiências.", icon: <MessageSquare className="w-6 h-6" />, tag: "Domínio da Expressão" },
   { title: "Liderança e Ética", description: "Desenvolvimento de carisma, responsabilidade e gestão de equipas para os grandes gestores de amanhã.", icon: <Users className="w-6 h-6" />, tag: "Protagonismo" },
   { title: "Etiqueta e Postura", description: "Normas de convivência, boas maneiras e protocolo social que abrem portas no mundo pessoal e profissional.", icon: <Sparkles className="w-6 h-6" />, tag: "Educação Comportamental" },
   { title: "Empreendedorismo Kids", description: "Despertar a proactividade, visão estratégica, noções de valor e criatividade financeira desde cedo.", icon: <TrendingUp className="w-6 h-6" />, tag: "Mentalidade Empreendedora" },

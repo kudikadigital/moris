@@ -19,8 +19,8 @@ const slideFromLeft = {
 export function Testimonials() {
   return (
     // This section "closes" Featured (cursos) — sits on top with z-30
-    <section className="relative z-30 py-32 bg-white overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-100 to-transparent" />
+    <section id="depoimentos" className="relative z-30 py-32 bg-white overflow-hidden">
+      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-slate-100 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-6">
         <motion.div

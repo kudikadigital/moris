@@ -13,12 +13,17 @@ import { CTA } from "@/components/Cta";
 import { Footer } from "@/components/Footer";
 import { useState } from "react";
 import { EnrollmentModal } from "@/components/Modals/EnrollmentModal";
+import { HeroImage } from "@/components/HeroImage";
+import { CTA2 } from "@/components/Cta2";
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <main className="relative min-h-screen bg-white selection:bg-orange-100 selection:text-orange-900">
       {/* Navegação fixa */}
-      <Header onOpenModal={() => setIsModalOpen(true)} isModalOpen={isModalOpen} />
+      <Header
+        onOpenModal={() => setIsModalOpen(true)}
+        isModalOpen={isModalOpen}
+      />
 
       {/* Fluxo de Conteúdo */}
       <Hero onOpenModal={() => setIsModalOpen(true)} />
@@ -30,14 +35,16 @@ export default function Home() {
       <div className="relative z-20 overflow-x-hidden">
         <About />
         <Stats />
+        <HeroImage /> {/* ← Novo componente aqui */}
         <Pillars />
+        <CTA2 />
       </div>
 
       {/* LAYER 3 — Card stack: Featured (sticky) + closers */}
       <div className="relative z-20">
         <Featured />
         {/* Testimonials and FAQ sit at z-30 — they scroll over Featured */}
-       
+
         <div className="relative z-30 overflow-x-hidden">
           <Testimonials />
           <FAQ />
@@ -48,7 +55,6 @@ export default function Home() {
       <div className="relative z-30">
         <CTA />
         <Footer />
-
 
         {/* Modal de inscrição */}
         <EnrollmentModal
