@@ -1,22 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  Phone,
-  MessageCircle,
-  MapPin,
-  Quote,
-  Sparkles,
-  ArrowRight,
-} from "lucide-react";
+import { Phone, MessageCircle, MapPin, Quote, Sparkles, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export function CTA2() {
   // Função para gerar link do WhatsApp com mensagem pré-preenchida
   const getWhatsAppLink = () => {
-    const phoneNumber = "244938460008"; // Número sem o + e sem espaços
+    const phoneNumber = "244938460008";
     const message = encodeURIComponent(
-      "Olá! Vi o site da Academia Moris-Reforma e gostaria de mais informações sobre os cursos para meu filho(a). Podem me ajudar?",
+      "Olá! Vi o site da Academia Moris-Reforma e gostaria de mais informações sobre os cursos para meu filho(a). Podem me ajudar?"
     );
     return `https://wa.me/${phoneNumber}?text=${message}`;
   };
@@ -33,7 +26,7 @@ export function CTA2() {
           {/* Elementos Decorativos de Fundo */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-0 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl" />
-
+          
           {/* Padrão de Pontos Sutil */}
           <div
             className="absolute inset-0 opacity-[0.015] pointer-events-none"
@@ -56,8 +49,8 @@ export function CTA2() {
                 <Quote className="w-8 h-8 text-orange-600" />
               </div>
               <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-slate-800 max-w-4xl mx-auto leading-relaxed">
-                <span className="text-orange-600">&quot;</span>A reforma do
-                mundo começa pela educação das nossas crianças.
+                <span className="text-orange-600">&quot;</span>
+                A reforma do mundo começa pela educação das nossas crianças.
                 <span className="text-orange-600">&quot;</span>
               </h3>
               <p className="text-slate-500 text-lg mt-4 font-medium">
@@ -87,9 +80,9 @@ export function CTA2() {
                     LIDERAR O FUTURO?
                   </span>
                 </h2>
-
+                
                 <p className="text-slate-600 text-lg mb-8 leading-relaxed">
-                  Não ensinamos apenas matérias, formamos protagonistas.
+                  Não ensinamos apenas matérias, formamos protagonistas. 
                   Pequenos grandes líderes, grandes transformações começam aqui.
                 </p>
 
@@ -99,7 +92,7 @@ export function CTA2() {
                     "Metodologia ativa e vivencial",
                     "Mentores especializados em desenvolvimento infantil",
                     "Ambiente seguro e acolhedor",
-                    "Resultados comprovados em 3 meses",
+                    "Resultados comprovados em 3 meses"
                   ].map((feature, index) => (
                     <div key={index} className="flex items-center gap-3">
                       <div className="w-5 h-5 rounded-full bg-orange-100 flex items-center justify-center">
@@ -157,10 +150,10 @@ export function CTA2() {
                   <div className="space-y-6">
                     {/* Localização */}
                     <div className="group">
-                      <p className="text-slate-500 text-sm mb-2 uppercase tracking-wider font-semibold flex items-center gap-2">
+                      <div className="text-slate-500 text-sm mb-2 uppercase tracking-wider font-semibold flex items-center gap-2">
                         <div className="w-1 h-1 rounded-full bg-orange-500" />
                         Localização
-                      </p>
+                      </div>
                       <p className="text-slate-800 text-lg font-medium">
                         Benfica, Via Expressa
                       </p>
@@ -171,19 +164,19 @@ export function CTA2() {
 
                     {/* Contato */}
                     <div className="group">
-                      <p className="text-slate-500 text-sm mb-2 uppercase tracking-wider font-semibold flex items-center gap-2">
+                      <div className="text-slate-500 text-sm mb-2 uppercase tracking-wider font-semibold flex items-center gap-2">
                         <div className="w-1 h-1 rounded-full bg-orange-500" />
                         Contactos
-                      </p>
+                      </div>
                       <div className="space-y-2">
-                        <a
-                          href="tel:938460008"
+                        <a 
+                          href="tel:938460008" 
                           className="block text-slate-800 text-lg font-medium hover:text-orange-600 transition-colors"
                         >
                           938 460 008
                         </a>
-                        <a
-                          href="tel:942061223"
+                        <a 
+                          href="tel:942061223" 
                           className="block text-slate-800 text-lg font-medium hover:text-orange-600 transition-colors"
                         >
                           942 061 223
@@ -193,23 +186,43 @@ export function CTA2() {
 
                     {/* Horário */}
                     <div className="group">
-                      <p className="text-slate-500 text-sm mb-2 uppercase tracking-wider font-semibold flex items-center gap-2">
+                      <div className="text-slate-500 text-sm mb-2 uppercase tracking-wider font-semibold flex items-center gap-2">
                         <div className="w-1 h-1 rounded-full bg-orange-500" />
                         Horário de Funcionamento
-                      </p>
+                      </div>
                       <p className="text-slate-800">
                         Segunda a Sexta: 8h às 18h
                       </p>
-                      <p className="text-slate-800">Sábado: 9h às 13h</p>
+                      <p className="text-slate-800">
+                        Sábado: 9h às 13h
+                      </p>
                     </div>
+
+                    {/* WhatsApp Direto com mensagem */}
+                    {/* <div className="pt-6 mt-4 border-t border-slate-100">
+                      <Link
+                        href={getWhatsAppLink()}
+                        target="_blank"
+                        className="flex items-center justify-between bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4 hover:from-green-100 hover:to-emerald-100 transition-all group"
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center">
+                            <MessageCircle className="w-5 h-5 text-white" />
+                          </div>
+                          <div>
+                            <p className="font-semibold text-slate-800">Fale conosco</p>
+                            <p className="text-xs text-slate-500">Resposta rápida via WhatsApp</p>
+                          </div>
+                        </div>
+                        <ArrowRight className="w-4 h-4 text-green-600 group-hover:translate-x-1 transition-transform" />
+                      </Link>
+                    </div> */}
 
                     {/* Badge de Diferencial */}
                     <div className="pt-2">
                       <div className="bg-linear-to-r from-orange-50 to-transparent rounded-xl p-4">
                         <p className="text-orange-700 font-medium italic text-sm leading-relaxed">
-                          💡 &quot;Não apenas ensinamos, inspiramos. Cada
-                          criança sai daqui preparada para transformar o
-                          mundo.&quot;
+                          💡 &quot;Não apenas ensinamos, inspiramos. Cada criança sai daqui preparada para transformar o mundo.&quot;
                         </p>
                       </div>
                     </div>

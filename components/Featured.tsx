@@ -1,85 +1,52 @@
+// components/Featured.tsx — VERSÃO CORRIGIDA
+// Client Component puro: recebe os cursos como props (não acede à DB).
+// A DB é acedida pelo FeaturedServer (Server Component).
+
 "use client";
 
 import { motion } from "framer-motion";
-import { Mic2, ShieldCheck, BrainCircuit, Rocket, Palette } from "lucide-react";
+import { Mic2, ShieldCheck, BrainCircuit, Rocket, Palette, Heart, BookOpen } from "lucide-react";
 import { CourseCard } from "./CourseCard";
 import { CourseGrid } from "./CourseGrid";
+import type { ReactNode } from "react";
 
-// Mock images - substitua pelas suas URLs reais
-const courseImages = {
-  oratoria: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800",
-  lideranca: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800",
-  emocional: "https://images.unsplash.com/photo-1543286386-2e659306cd6c?w=800",
-  empreendedorismo: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800",
-  etiqueta: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800",
+const iconMap: Record<string, ReactNode> = {
+  Mic2: <Mic2 className="w-5 h-5" />,
+  ShieldCheck: <ShieldCheck className="w-5 h-5" />,
+  BrainCircuit: <BrainCircuit className="w-5 h-5" />,
+  Rocket: <Rocket className="w-5 h-5" />,
+  Palette: <Palette className="w-5 h-5" />,
+  Heart: <Heart className="w-5 h-5" />,
+  BookOpen: <BookOpen className="w-5 h-5" />,
 };
 
-const courses = [
-  {
-    id: 1,
-    title: "Oratória e Retórica Infantil",
-    description: "Perca o medo de falar e encante audiências com domínio da expressão clara.",
-    image: courseImages.oratoria,
-    icon: <Mic2 className="w-5 h-5" />,
-    tag: "Mais Procurado",
-    duration: "6 semanas",
-    level: "8-12 anos",
-    students: 234,
-    href: "/cursos/oratoria-infantil",
-  },
-  {
-    id: 2,
-    title: "Liderança e Ética para Adolescente",
-    description: "Onde nascem os grandes gestores: foco em carisma e gestão de equipas.",
-    image: courseImages.lideranca,
-    icon: <ShieldCheck className="w-5 h-5" />,
-    tag: "Adolescentes",
-    duration: "10 semanas",
-    level: "13-17 anos",
-    students: 189,
-    href: "/cursos/lideranca-etica",
-  },
-  {
-    id: 3,
-    title: "Inteligência Emocional",
-    description: "Autocontrolo e ferramentas de gestão de sentimentos para vencer desafios.",
-    image: courseImages.emocional,
-    icon: <BrainCircuit className="w-5 h-5" />,
-    tag: "Resiliência",
-    duration: "8 semanas",
-    level: "Todas idades",
-    students: 456,
-    href: "/cursos/inteligencia-emocional",
-  },
-  {
-    id: 4,
-    title: "Empreendedorismo Kids",
-    description: "Da ideia à ação: despertando a proactividade e visão estratégica cedo.",
-    image: courseImages.empreendedorismo,
-    icon: <Rocket className="w-5 h-5" />,
-    tag: "Inovação",
-    duration: "12 semanas",
-    level: "10-15 anos",
-    students: 167,
-    href: "/cursos/empreendedorismo-kids",
-  },
-  {
-    id: 5,
-    title: "Etiqueta e Postura",
-    description: "Elegância e comportamento social que abrem portas em qualquer lugar.",
-    image: courseImages.etiqueta,
-    icon: <Palette className="w-5 h-5" />,
-    tag: "Comportamental",
-    duration: "4 semanas",
-    level: "Todas idades",
-    students: 123,
-    href: "/cursos/etiqueta-postura",
-  },
-];
+export interface FeaturedCourse {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  icon?: string;
+  tag?: string;
+  duration?: string;
+  level?: string;
+  href: string;
+}
 
-export function Featured() {
+interface FeaturedProps {
+  courses: FeaturedCourse[];
+}
+
+export function Featured({ courses }: FeaturedProps) {
+  const courseCards = courses.map((c) => ({
+    ...c,
+    icon: c.icon ? iconMap[c.icon] : undefined,
+  }));
+
   return (
-    <section id="cursos" className="sticky top-0 z-20 min-h-screen bg-slate-950 text-white overflow-hidden py-24">
+    <section
+      id="cursos"
+      className="sticky top-0 z-20 min-h-screen bg-slate-950 text-white overflow-hidden py-24"
+    >
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
@@ -101,18 +68,27 @@ export function Featured() {
               Cursos em Destaque
             </motion.h2>
           </div>
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-slate-400 max-w-sm text-sm leading-relaxed"
-          >
-            No mundo actual, saber o básico não chega. O diferencial está na capacidade de comunicar e liderar.
-          </motion.p>
+          <div className="flex flex-col items-start md:items-end gap-3">
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="text-slate-400 max-w-sm text-sm leading-relaxed"
+            >
+              No mundo actual, saber o básico não chega. O diferencial está na
+              capacidade de comunicar e liderar.
+            </motion.p>
+            <a
+              href="/cursos"
+              className="text-orange-500 text-xs font-black uppercase tracking-widest hover:text-orange-400 transition-colors"
+            >
+              Ver todos os cursos →
+            </a>
+          </div>
         </div>
 
-        {/* Grid de Cards */}
-        <CourseGrid courses={courses} columns={3} />
+        {/* Grid */}
+        <CourseGrid courses={courseCards} columns={3} />
       </div>
     </section>
   );

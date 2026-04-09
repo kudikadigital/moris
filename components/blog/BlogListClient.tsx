@@ -1,55 +1,135 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { ArrowUpRight } from "lucide-react";
+import { AdBannerInline } from "@/components/ads/AdBannerInline";
 
-export function BlogListClient({ initialPosts }: { initialPosts: any[] }) {
-  if (initialPosts.length === 0) {
-    return (
-      <div className="text-center py-20">
-        <p className="text-slate-400 italic">Ainda não foram publicados artigos.</p>
-      </div>
-    )
-  }
+interface Post {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  category: string;
+  createdAt: Date | string;
+  image?: string | null;
+  authorName?: string | null;
+  authorImage?: string | null;
+}
+
+interface BetweenAd {
+  id: string;
+  title: string;
+  description?: string;
+  linkUrl: string;
+  ctaText?: string;
+  bgColor?: string;
+}
+
+interface BlogListClientProps {
+  initialPosts: Post[];
+  betweenAds?: BetweenAd[];
+}
+
+function formatDate(date: Date | string) {
+  return new Intl.DateTimeFormat("pt-AO", {
+    day: "2-digit", month: "short", year: "numeric",
+  }).format(new Date(date));
+}
+
+const AD_INTERVAL = 4;
+
+export function BlogListClient({ initialPosts, betweenAds = [] }: BlogListClientProps) {
+  const categories = Array.from(new Set(initialPosts.map((p) => p.category)));
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+
+  const filtered = activeCategory
+    ? initialPosts.filter((p) => p.category.toLowerCase() === activeCategory.toLowerCase())
+    : initialPosts;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-      {initialPosts.map((post, index) => (
-        <motion.article 
-          key={post.id}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: index * 0.1 }}
-          className="group"
+    <div>
+      {/* Filtros */}
+      <div className="flex flex-wrap gap-2 mb-8">
+        <button
+          onClick={() => setActiveCategory(null)}
+          className={`px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider transition-all ${
+            !activeCategory ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+          }`}
         >
-          {/* Agora o link usa o slug real do banco de dados */}
-          <Link href={`/blog/${post.slug}`}>
-            <div className="relative h-72 mb-8 overflow-hidden rounded-[2.5rem] bg-slate-100 shadow-sm transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-orange-600/10">
-              <div className="absolute inset-0 bg-linear-to-br from-orange-100/50 to-slate-200 group-hover:scale-110 transition-transform duration-700 ease-out" />
-              <span className="absolute top-6 left-6 z-10 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest text-slate-900">
-                {post.category}
-              </span>
-            </div>
+          Todos
+        </button>
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setActiveCategory(cat)}
+            className={`px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider transition-all ${
+              activeCategory?.toLowerCase() === cat.toLowerCase()
+                ? "bg-orange-600 text-white"
+                : "bg-slate-100 text-slate-600 hover:bg-orange-100 hover:text-orange-700"
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
 
-            <div className="px-2">
-              <h3 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-orange-600 transition-colors leading-tight">
-                {post.title}
-              </h3>
-              <p className="text-slate-500 text-sm mb-6 line-clamp-2 font-light italic">
-                {post.excerpt}
-              </p>
-              <div className="flex items-center gap-3 text-slate-900 font-black text-[10px] uppercase tracking-[0.2em]">
-                <span>Ler Artigo Completo</span>
-                <div className="w-8 h-8 rounded-full border border-slate-100 flex items-center justify-center group-hover:bg-orange-600 group-hover:text-white transition-all">
-                  <ArrowRight className="w-3 h-3" />
+      {/* Lista */}
+      <div className="space-y-8">
+        {filtered.length === 0 && (
+          <p className="text-slate-500 italic text-center py-12">Nenhum artigo nesta categoria ainda.</p>
+        )}
+
+        {filtered.map((post, index) => (
+          <div key={post.id}>
+            {index > 0 && index % AD_INTERVAL === 0 && betweenAds.length > 0 && (
+              <AdBannerInline
+                {...betweenAds[Math.floor(index / AD_INTERVAL - 1) % betweenAds.length]}
+              />
+            )}
+
+            <Link href={`/blog/${post.slug}`} className="group block">
+              <article className="flex flex-col md:flex-row gap-6 p-6 rounded-2xl border border-slate-100 hover:border-orange-200 hover:bg-orange-50/30 transition-all">
+                {post.image && (
+                  <div className="relative w-full md:w-48 h-40 md:h-32 rounded-xl overflow-hidden flex-shrink-0">
+                    <Image
+                      src={post.image} alt={post.title} fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                )}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-orange-600">{post.category}</span>
+                    <span className="text-slate-300">·</span>
+                    <span className="text-[10px] text-slate-400">{formatDate(post.createdAt)}</span>
+                  </div>
+                  <h2 className="text-lg font-bold text-slate-900 group-hover:text-orange-600 transition-colors line-clamp-2 mb-2">
+                    {post.title}
+                  </h2>
+                  <p className="text-slate-500 text-sm line-clamp-2 mb-3">{post.excerpt}</p>
+                  <div className="flex items-center justify-between">
+                    {post.authorName && (
+                      <div className="flex items-center gap-2">
+                        {post.authorImage && (
+                          <div className="relative w-6 h-6 rounded-full overflow-hidden">
+                            <Image src={post.authorImage} alt={post.authorName} fill className="object-cover" />
+                          </div>
+                        )}
+                        <span className="text-xs text-slate-500 font-medium">{post.authorName}</span>
+                      </div>
+                    )}
+                    <span className="ml-auto flex items-center gap-1 text-xs font-black text-orange-600 group-hover:gap-2 transition-all">
+                      Ler artigo <ArrowUpRight size={12} />
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </Link>
-        </motion.article>
-      ))}
+              </article>
+            </Link>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,126 +1,226 @@
+// app/admin/(dashboard)/blog/new/page.tsx — VERSÃO ACTUALIZADA
+// Adiciona: campos de autor (authorName, authorRole, authorImage) ao formulário
+// O artigo é guardado na DB com slug gerado automaticamente
+
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useActionState } from "react";
-import { motion } from "framer-motion";
-import { Save, ArrowLeft, Type, FileText, Tag } from "lucide-react";
+import { Save, ArrowLeft, User } from "lucide-react";
 import Link from "next/link";
-import { ActionState, createPost } from "@/lib/actions/blog";
+import { createPost } from "@/lib/actions/blog";
 
-const initialState: ActionState = {
-  message: "",
-  error: false,
+type BlogState = {
+  message: string;
+  error: boolean;
+  success?: boolean;
 };
 
-export default function NewPostPage() {
+const initialState: BlogState = { message: "", error: false };
+
+// Gera slug a partir do título
+function toSlug(title: string) {
+  return title
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
+}
+
+export default function NewBlogPostPage() {
+  const router = useRouter();
   const [state, formAction, isPending] = useActionState(createPost, initialState);
+  const [title, setTitle] = useState("");
+  const [slug, setSlug] = useState("");
+
+  if (state.success) {
+    router.push("/admin/blog");
+  }
+
+  const inputCls =
+    "w-full bg-slate-950 border border-slate-800 rounded-2xl px-5 py-4 text-white text-sm outline-none focus:border-orange-600 transition-all placeholder:text-slate-700";
+  const labelCls =
+    "text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1 block mb-2";
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-200 pt-32 pb-20">
-      <div className="max-w-4xl mx-auto px-6">
-        
-        {/* Header de Navegação */}
-        <div className="flex items-center justify-between mb-12">
-          <Link href="/admin/blog" className="flex items-center gap-2 text-slate-500 hover:text-white transition-colors text-sm font-bold uppercase tracking-widest">
-            <ArrowLeft size={16} /> Voltar ao Blog
-          </Link>
-          <div className="h-px flex-1 bg-slate-900 mx-8" />
-          <span className="text-[10px] font-black uppercase tracking-[0.3em] text-orange-600">Editor Mori&#39;s</span>
+    <div className="p-8 space-y-8 max-w-4xl">
+      <header className="flex items-center gap-4">
+        <Link href="/admin/blog" className="p-2 text-slate-500 hover:text-white transition-colors">
+          <ArrowLeft size={20} />
+        </Link>
+        <div>
+          <h1 className="text-3xl font-bold text-white tracking-tighter italic">
+            Novo Artigo<span className="text-orange-600">.</span>
+          </h1>
+          <p className="text-slate-500 text-sm font-light">Cria um novo artigo para Vozes da Reforma.</p>
         </div>
+      </header>
 
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-slate-900/50 border border-slate-800 p-8 md:p-12 rounded-[3rem] backdrop-blur-xl shadow-2xl"
-        >
-          <form action={formAction} className="space-y-8">
-            
-            {/* Feedback de Estado */}
-            {state.message && (
-              <div className={`p-4 rounded-2xl text-sm font-bold border ${state.error ? 'bg-red-500/10 border-red-500/30 text-red-400' : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'}`}>
-                {state.message}
-              </div>
-            )}
+      <form action={formAction} className="space-y-8">
+        {/* Informações do Artigo */}
+        <section className="bg-slate-900/40 border border-slate-800 rounded-[2rem] p-8 space-y-6">
+          <h2 className="text-white font-bold text-sm uppercase tracking-widest border-b border-slate-800 pb-4">
+            Conteúdo
+          </h2>
 
-            {/* Título */}
-            <div className="space-y-2">
-              <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-500 ml-4">
-                <Type size={12} className="text-orange-600" /> Título do Artigo
-              </label>
-              <input 
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="md:col-span-2">
+              <label className={labelCls}>Título do Artigo *</label>
+              <input
                 name="title"
                 required
-                placeholder="Ex: A Arte de Falar em Público no Benfica"
-                className="w-full bg-slate-950 border border-slate-800 rounded-2xl px-6 py-4 outline-none focus:border-orange-600 transition-all text-xl font-bold"
+                value={title}
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                  setSlug(toSlug(e.target.value));
+                }}
+                placeholder="Ex: Como a Oratória transforma a confiança do seu filho"
+                className={inputCls}
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Categoria */}
-              <div className="space-y-2">
-                <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-500 ml-4">
-                  <Tag size={12} className="text-orange-600" /> Categoria
-                </label>
-                <select name="category" className="w-full bg-slate-950 border border-slate-800 rounded-2xl px-6 py-4 outline-none focus:border-orange-600 appearance-none cursor-pointer font-bold">
-                  <option value="Educação">Educação</option>
-                  <option value="Liderança">Liderança</option>
-                  <option value="Comportamental">Comportamental</option>
-                </select>
-              </div>
-
-              {/* Status de Publicação */}
-              <div className="space-y-2">
-                <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-500 ml-4">
-                  <FileText size={12} className="text-orange-600" /> Visibilidade
-                </label>
-                <select name="published" className="w-full bg-slate-950 border border-slate-800 rounded-2xl px-6 py-4 outline-none focus:border-orange-600 appearance-none cursor-pointer font-bold">
-                  <option value="false">Rascunho (Privado)</option>
-                  <option value="true">Publicar Agora</option>
-                </select>
-              </div>
-            </div>
-
-            {/* Resumo */}
-            <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-4">Breve Resumo (Excerpt)</label>
-              <textarea 
-                name="excerpt"
-                rows={2}
-                placeholder="Uma pequena introdução para atrair o leitor..."
-                className="w-full bg-slate-950 border border-slate-800 rounded-2xl px-6 py-4 outline-none focus:border-orange-600 resize-none italic font-light"
-              />
-            </div>
-
-            {/* Conteúdo Principal */}
-            <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-4">Corpo do Artigo (Markdown)</label>
-              <textarea 
-                name="content"
+            <div>
+              <label className={labelCls}>Slug (URL gerado automaticamente)</label>
+              <input
+                name="slug"
                 required
-                rows={12}
-                placeholder="Escreva aqui o seu pensamento..."
-                className="w-full bg-slate-950 border border-slate-800 rounded-3xl px-6 py-6 outline-none focus:border-orange-600 font-mono text-sm leading-relaxed"
+                value={slug}
+                onChange={(e) => setSlug(e.target.value)}
+                placeholder="ex: como-a-oratoria-transforma"
+                className={inputCls + " font-mono text-orange-400"}
               />
             </div>
 
-            {/* Botão de Submissão */}
-            <button 
-              type="submit"
-              disabled={isPending}
-              className="group w-full py-5 bg-orange-600 hover:bg-orange-700 disabled:bg-slate-800 disabled:text-slate-600 text-white font-black rounded-full transition-all flex items-center justify-center gap-3 shadow-xl shadow-orange-600/10 active:scale-95"
-            >
-              {isPending ? (
-                <span className="animate-pulse lowercase tracking-widest">A processar em Luanda...</span>
-              ) : (
-                <>
-                  <Save size={18} className="group-hover:rotate-12 transition-transform" />
-                  <span>FINALIZAR E PUBLICAR</span>
-                </>
-              )}
-            </button>
+            <div>
+              <label className={labelCls}>Categoria *</label>
+              <select name="category" required className={inputCls + " appearance-none cursor-pointer"}>
+                <option value="">Seleccionar</option>
+                <option value="Educação">Educação</option>
+                <option value="Liderança">Liderança</option>
+                <option value="Desenvolvimento">Desenvolvimento</option>
+                <option value="Oratória">Oratória</option>
+                <option value="Família">Família</option>
+              </select>
+            </div>
+          </div>
 
-          </form>
-        </motion.div>
-      </div>
-    </main>
+          <div>
+            <label className={labelCls}>URL da Imagem de Capa</label>
+            <input
+              name="image"
+              type="url"
+              placeholder="https://images.unsplash.com/..."
+              className={inputCls}
+            />
+          </div>
+
+          <div>
+            <label className={labelCls}>Resumo (Excerpt) *</label>
+            <textarea
+              name="excerpt"
+              required
+              rows={2}
+              placeholder="Frase de introdução que aparece na listagem do blog"
+              className={inputCls + " resize-none"}
+            />
+          </div>
+
+          <div>
+            <label className={labelCls}>Conteúdo Completo *</label>
+            <textarea
+              name="content"
+              required
+              rows={14}
+              placeholder="Escreva o artigo completo aqui. Use parágrafos separados por linha em branco."
+              className={inputCls + " resize-none font-light leading-relaxed"}
+            />
+            <p className="text-[10px] text-slate-600 mt-2 ml-1">
+              Separe os parágrafos com uma linha em branco. O sistema formata automaticamente.
+            </p>
+          </div>
+        </section>
+
+        {/* Colunista / Autor */}
+        <section className="bg-slate-900/40 border border-slate-800 rounded-[2rem] p-8 space-y-6">
+          <div className="flex items-center gap-3 border-b border-slate-800 pb-4">
+            <User size={16} className="text-orange-600" />
+            <h2 className="text-white font-bold text-sm uppercase tracking-widest">
+              Colunista / Autor
+            </h2>
+            <span className="text-[10px] text-slate-600 font-bold">(opcional)</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+              <label className={labelCls}>Nome do Autor</label>
+              <input
+                name="authorName"
+                placeholder="Ex: Clémos Epalanga"
+                className={inputCls}
+              />
+            </div>
+            <div>
+              <label className={labelCls}>Cargo / Role</label>
+              <input
+                name="authorRole"
+                placeholder="Ex: Director Pedagógico"
+                className={inputCls}
+              />
+            </div>
+            <div>
+              <label className={labelCls}>Foto do Autor (URL)</label>
+              <input
+                name="authorImage"
+                type="url"
+                placeholder="https://..."
+                className={inputCls}
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Publicação */}
+        <section className="bg-slate-900/40 border border-slate-800 rounded-[2rem] p-8 space-y-4">
+          <h2 className="text-white font-bold text-sm uppercase tracking-widest border-b border-slate-800 pb-4">
+            Publicação
+          </h2>
+          <div className="flex items-center justify-between bg-slate-950/50 p-4 rounded-2xl border border-slate-800">
+            <div>
+              <p className="text-sm text-white font-bold">Publicar imediatamente</p>
+              <p className="text-xs text-slate-500">Se desactivado, fica como rascunho</p>
+            </div>
+            <input
+              type="checkbox"
+              name="published"
+              defaultChecked
+              className="w-5 h-5 accent-orange-600 cursor-pointer"
+            />
+          </div>
+        </section>
+
+        {state.error && (
+          <p className="text-red-500 text-xs font-bold italic ml-4">{state.message}</p>
+        )}
+
+        <div className="flex gap-4">
+          <button
+            type="submit"
+            disabled={isPending}
+            className="flex items-center gap-2 bg-orange-600 hover:bg-orange-700 disabled:bg-slate-700 text-white px-8 py-4 rounded-full font-black text-xs uppercase tracking-widest transition-all shadow-lg"
+          >
+            <Save size={16} /> {isPending ? "A publicar..." : "Publicar Artigo"}
+          </button>
+          <Link
+            href="/admin/blog"
+            className="flex items-center gap-2 text-slate-500 hover:text-white px-6 py-4 rounded-full font-bold text-xs uppercase tracking-widest transition-colors"
+          >
+            Cancelar
+          </Link>
+        </div>
+      </form>
+    </div>
   );
 }

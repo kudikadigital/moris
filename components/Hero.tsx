@@ -116,9 +116,13 @@ export function Hero({ onOpenModal }: { onOpenModal: () => void }) {
             </span>
           </button>
 
-          <button className="px-8 py-4 border border-slate-200 text-slate-900 font-medium rounded-full hover:bg-slate-50 hover:border-slate-300 transition-all duration-300 w-full sm:w-auto">
-            Conhecer Metodologia
-          </button>
+          
+            <button 
+            // onClick={"/cou"}
+            className="px-8 py-4 border border-slate-200 text-slate-900 font-medium rounded-full hover:bg-slate-50 hover:border-slate-300 transition-all duration-300 w-full sm:w-auto">
+              Conhecer Nossos Cursos
+            </button>
+          
         </motion.div>
 
         {/* Location tag */}

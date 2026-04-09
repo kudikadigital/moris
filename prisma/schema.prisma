@@ -1,7 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
+// prisma/schema.prisma — VERSÃO ACTUALIZADA
+// Adiciona: Course, Ad, e campo author no Post
 
 generator client {
   provider = "prisma-client"
@@ -12,36 +10,100 @@ datasource db {
   provider = "postgresql"
 }
 
-
-// CMS: Artigos do Blog
+// ─── CMS: Artigos do Blog ─────────────────────────────────────────────────────
 model Post {
-  id        String   @id @default(cuid())
-  title     String
-  slug      String   @unique
-  content   String   @db.Text
-  excerpt   String
-  category  String
-  image     String?
-  published Boolean  @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  content     String   @db.Text
+  excerpt     String
+  category    String
+  image       String?
+
+  // NOVO: Suporte a colunistas (rosto dos autores)
+  authorName  String?
+  authorRole  String?
+  authorImage String?
+
+  published   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
-// CRM: Gestão de Leads
+// ─── CMS: Cursos ──────────────────────────────────────────────────────────────
+model Course {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String
+  excerpt     String
+
+  // Detalhes do curso
+  image       String?
+  icon        String?          // nome do icon lucide ex: "Mic2"
+  tag         String?          // ex: "Mais Procurado"
+  duration    String?          // ex: "6 semanas"
+  ageRange    String?          // ex: "8–12 anos" (era o campo "level")
+  category    String           // ex: "Oratória", "Liderança"
+
+  // Módulos/Conteúdo (JSON array de { heading, body })
+  modules     Json?
+
+  // Objectivos (JSON array de strings)
+  objectives  Json?
+
+  // Metodologia (texto livre)
+  methodology String?  @db.Text
+
+  // Ordem de exibição na homepage
+  order       Int      @default(0)
+
+  // Inscrições associadas (via source no Lead)
+  published   Boolean  @default(true)
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ─── CMS: Anúncios ───────────────────────────────────────────────────────────
+model Ad {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  imageUrl    String?
+  linkUrl     String
+
+  // Posição no site: "hero-blog" | "sidebar-blog" | "between-posts" | "inline-course"
+  position    String
+
+  // Cor de fundo (opcional, para banners sem imagem)
+  bgColor     String?  @default("#ea580c")
+  ctaText     String?  @default("Saiba Mais")
+
+  active      Boolean  @default(true)
+  startDate   DateTime?
+  endDate     DateTime?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ─── CRM: Admin ──────────────────────────────────────────────────────────────
 model admin {
-  id       String   @id @default(cuid())
+  id       String @id @default(cuid())
   name     String
-  email    String   @unique
+  email    String @unique
   password String
 }
 
+// ─── CRM: Leads / Inscrições ─────────────────────────────────────────────────
 model Lead {
   id        String   @id @default(cuid())
   name      String
   email     String
   phone     String?
-  source    String   // Ex: "Matrícula", "Newsletter", "Ebook"
-  status    String   @default("Novo") // Novo, Em Contacto, Matriculado, Arquivado
+  source    String   // Ex: "Inscrição: Oratória Infantil", "Newsletter"
+  status    String   @default("Novo") // Novo | Em Contacto | Matriculado | Arquivado
   message   String?  @db.Text
   createdAt DateTime @default(now())
 }
